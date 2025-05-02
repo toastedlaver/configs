@@ -15,7 +15,11 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias em="${MYEMACS}/bin/runemacs.exe"
-alias emc="${MYEMACS}/bin/emacsclientw.exe"
+alias emc="${MYEMACS}/bin/emacsclient.exe"
+alias emcw="${MYEMACS}/bin/emacsclientw.exe"
+
+## 環境変数
+export EDITOR="${MYEMACS}/bin/emacsclient.exe"
 
 ## 通常使用prompt
 PS1="\[\e[01;31m\][\u@\H \W]\$ \[\e[00m\]"
