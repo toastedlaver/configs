@@ -88,9 +88,9 @@ fc.ime_target          += []
 # （ここで指定したキーに新たに別のキー設定をしたいときには、「-2」が付くセクション内で define_key2
 #   関数を利用して定義してください）
 fc.skip_settings_key    = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベース Keymap
-                           "keymap_global"    : [], # グローバル Keymap
+                           "keymap_global"    : ["A-y", "A-l"], # グローバル Keymap  ★emacs のA-y,A-lが使えなくなるのでスキップ
                            "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
-                           "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap
+#                           "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap ★エラーが出るためコメントアウト
                            "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
                            "keymap_ei"        : [], # Emacs 日本語入力モード用 Keymap
                            "keymap_tsw"       : [], # タスク切り替え画面用 Keymap
@@ -132,14 +132,16 @@ fc.ctl_x_prefix_key = "C-x"
 fc.scroll_key = ["M-v", "C-v"]
 
 # Emacs 日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
-fc.use_emacs_ime_mode = True
+## C-j が効かなくなるので無効 (恐らくバルーンメッセージの Window にフォーカスが移ることによる影響かと)
+fc.use_emacs_ime_mode = False
 
 # Emacs 日本語入力モードが有効なときに表示するバルーンメッセージを指定する
 # fc.emacs_ime_mode_balloon_message = None
 fc.emacs_ime_mode_balloon_message = "▲"
 
 # IME の状態を表示するバルーンメッセージを表示するかどうかを指定する（True: 表示する、False: 表示しない）
-fc.use_ime_status_balloon = True
+## C-j が効かなくなるので無効 (恐らくバルーンメッセージの Window にフォーカスが移ることによる影響かと)
+fc.use_ime_status_balloon = False
 
 # ウィンドウが切り替わった際、IME の状態をリセット（英数入力）するかを指定する（True: する、False: しない）
 fc.use_ime_status_reset = False
@@ -232,6 +234,9 @@ fc.game_app_list        = ["ffxiv_dx11.exe",              # FINAL FANTASY XIV
                            ]
 
 # [section-base-2] ---------------------------------------------------------------------------------
+## 以下のキー動作は不要なので外す
+define_key(keymap_emacs, "C-j", self_insert_command("C-j")) # skkfep と衝突 (かな切り替えができなくなる)
+define_key(keymap_emacs, "M-S-1", self_insert_command("A-S-1")) # IME へ切り替えのキーと被っている
 
 # Grave Escape をエミュレーションする設定
 # （https://github.com/qmk/qmk_firmware/blob/master/docs/feature_grave_esc.md）
@@ -280,6 +285,8 @@ fc.clipboardList_listers = [
 ]
 
 # [section-clipboardList-2] ------------------------------------------------------------------------
+## emacs.exe で "A-y" が使えなくなるので「emacs キーバインドにするアプリだけ」有効にする
+define_key2(keymap_emacs, fc.clipboardList_key, lw_clipboardList)
 
 ####################################################################################################
 ## ランチャーリストの設定
