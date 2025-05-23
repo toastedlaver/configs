@@ -88,7 +88,7 @@ fc.ime_target          += []
 # （ここで指定したキーに新たに別のキー設定をしたいときには、「-2」が付くセクション内で define_key2
 #   関数を利用して定義してください）
 fc.skip_settings_key    = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベース Keymap
-                           "keymap_global"    : ["A-y", "A-l"], # グローバル Keymap  ★emacs のA-y,A-lが使えなくなるのでスキップ
+                           "keymap_global"    : ["A-y", "A-l", "A-o"], # グローバル Keymap  ★emacs ネイティブのキーが使えなくなるのでスキップ
                            "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
 #                           "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap ★エラーが出るためコメントアウト
                            "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
@@ -285,8 +285,9 @@ fc.clipboardList_listers = [
 ]
 
 # [section-clipboardList-2] ------------------------------------------------------------------------
-## emacs.exe で "A-y" が使えなくなるので「emacs キーバインドにするアプリだけ」有効にする
+## emacs.exe でネイティブのキーバインドが使えなくなるので「emacs キーバインドにするアプリだけ」有効にする
 define_key2(keymap_emacs, fc.clipboardList_key, lw_clipboardList)
+define_key2(keymap_emacs, fc.other_window_key, other_window)
 
 ####################################################################################################
 ## ランチャーリストの設定
@@ -335,6 +336,8 @@ fc.lancherList_listers = [
 # [section-extensions] -----------------------------------------------------------------------------
 
 # https://github.com/smzht/fakeymacs/blob/master/fakeymacs_manuals/extensions.org
+## emacs.exe でネイティブのキーバインドが使えなくなるので「emacs キーバインドにするアプリだけ」有効にする
+define_key2(keymap_emacs, fc.lancherList_key, lw_lancherList)
 
 # --------------------------------------------------------------------------------------------------
 # ■ ウィンドウ操作関連
@@ -476,13 +479,13 @@ if 0:
 # --------------------------------------------------------------------------------------------------
 
 # YouTube で Space による停止、再生が正しく機能しないことの暫定的な対策を行う
-if 1:
+if 0: # ファイル読み込みエラーが出る。いやだから extensions をデフォルトにするの止めろと(-_-#)
     exec(readConfigExtension(r"youtube_space_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 
 # 旧 Microsoft IME を使って文節長を変更した際、文節の表示が正しく行われないアプリの対策を行う
-if 1:
+if 0: # ファイル読み込みエラーが出る。いやだから extensions をデフォルトにするの止めろと(-_-#)
     exec(readConfigExtension(r"bunsetsu_correction\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
